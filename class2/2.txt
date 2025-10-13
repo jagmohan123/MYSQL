@@ -1,0 +1,915 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.08 sec)
+
+mysql> create database dsabatch18
+    -> ;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| dsabatch18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use dsabatch18;
+Database changed
+mysql> use codeclimber;
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_codeclimber |
++-----------------------+
+| employees             |
++-----------------------+
+1 row in set (0.02 sec)
+
+mysql> use  dsabatch18;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table student (sid int(11), name varchar (20), email varchar(30));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_dsabatch18 |
++----------------------+
+| student              |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> describe student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| email | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| email | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student add column phone varchar(12);
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| email | varchar(30) | YES  |     | NULL    |       |
+| phone | varchar(12) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student drop column phone;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| email | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student rename column name to studentName;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | varchar(30) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student modify email char(100);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student add column phone varchar(12),address varchar(40);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address varchar(40)' at line 1
+mysql> alter table student add column( phone varchar(12),address varchar(40));
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| phone       | varchar(12) | YES  |     | NULL    |       |
+| address     | varchar(40) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student drop column (phone,address);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(phone,address)' at line 1
+mysql> alter table student drop column phone,address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address' at line 1
+mysql> alter table student drop column phone;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student drop column address;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student add column gradution boolean ;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student alter  gradution set  default 12;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> rename table student to megastar;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_dsabatch18 |
++----------------------+
+| megastar             |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'dsabatch18.student' doesn't exist
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| dsabatch18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec) 
+
+ show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| dsabatch18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use dsabatch18;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_dsabatch18 |
++----------------------+
+| megastar             |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (1,'Jagmohan Rai',"jagmohan@gmail.com",13);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from megastar;
++------+--------------+--------------------+-----------+
+| sid  | studentName  | email              | gradution |
++------+--------------+--------------------+-----------+
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
++------+--------------+--------------------+-----------+
+1 row in set (0.01 sec)
+
+mysql> select sid, studentName from megastar;
++------+--------------+
+| sid  | studentName  |
++------+--------------+
+|    1 | Jagmohan Rai |
++------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select sid as studentid, studentName from megastar;
++-----------+--------------+
+| studentid | studentName  |
++-----------+--------------+
+|         1 | Jagmohan Rai |
++-----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (1,'Jagmohan Rai',"jagmohan@gmail.com",13)(2,"mohan",'mohan@gmail.com',15);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2,"mohan",'mohan@gmail.com',15)' at line 1
+mysql> insert into megastar values (1,'Jagmohan Rai',"jagmohan@gmail.com",13),(2,"mohan",'mohan@gmail.com',15);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from megastar;
++------+--------------+--------------------+-----------+
+| sid  | studentName  | email              | gradution |
++------+--------------+--------------------+-----------+
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    2 | mohan        | mohan@gmail.com    |        15 |
++------+--------------+--------------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into megastar values (3,"syam","syam@gmail.com");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into megastar values(sid,studentName,email) (3,"syam","syam@gmail.com");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(3,"syam","syam@gmail.com")' at line 1
+mysql> insert into megastar values(sid,studentName,email),(3,"syam","syam@gmail.com");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into megastar values (3,"syam","syam@gmail.com",);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into megastar values (3,"syam","syam@gmail.com",19);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from megastar;
++------+--------------+--------------------+-----------+
+| sid  | studentName  | email              | gradution |
++------+--------------+--------------------+-----------+
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    2 | mohan        | mohan@gmail.com    |        15 |
+|    3 | syam         | syam@gmail.com     |        19 |
++------+--------------+--------------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar (sid, studentName, email) values(4,"radhe","radhe@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from megastar;
++------+--------------+--------------------+-----------+
+| sid  | studentName  | email              | gradution |
++------+--------------+--------------------+-----------+
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    1 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    2 | mohan        | mohan@gmail.com    |        15 |
+|    3 | syam         | syam@gmail.com     |        19 |
+|    4 | radhe        | radhe@gmail.com    |        12 |
++------+--------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update megastar set sid=12 where sid=1;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from megastar;
++------+--------------+--------------------+-----------+
+| sid  | studentName  | email              | gradution |
++------+--------------+--------------------+-----------+
+|   12 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|   12 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    2 | mohan        | mohan@gmail.com    |        15 |
+|    3 | syam         | syam@gmail.com     |        19 |
+|    4 | radhe        | radhe@gmail.com    |        12 |
++------+--------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update megastar set sid=12 where studentName="XYZ";
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from megastar;
++------+--------------+--------------------+-----------+
+| sid  | studentName  | email              | gradution |
++------+--------------+--------------------+-----------+
+|   12 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|   12 | Jagmohan Rai | jagmohan@gmail.com |        13 |
+|    2 | mohan        | mohan@gmail.com    |        15 |
+|    3 | syam         | syam@gmail.com     |        19 |
+|    4 | radhe        | radhe@gmail.com    |        12 |
++------+--------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update megastar set studentName="xyz" where sid=12;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from megastar;
++------+-------------+--------------------+-----------+
+| sid  | studentName | email              | gradution |
++------+-------------+--------------------+-----------+
+|   12 | xyz         | jagmohan@gmail.com |        13 |
+|   12 | xyz         | jagmohan@gmail.com |        13 |
+|    2 | mohan       | mohan@gmail.com    |        15 |
+|    3 | syam        | syam@gmail.com     |        19 |
+|    4 | radhe       | radhe@gmail.com    |        12 |
++------+-------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from megastar where sid=12;
+Query OK, 2 rows affected (0.08 sec)
+
+mysql> select * from megastar;
++------+-------------+-----------------+-----------+
+| sid  | studentName | email           | gradution |
++------+-------------+-----------------+-----------+
+|    2 | mohan       | mohan@gmail.com |        15 |
+|    3 | syam        | syam@gmail.com  |        19 |
+|    4 | radhe       | radhe@gmail.com |        12 |
++------+-------------+-----------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty","rty@gmail.com",14),
+    -> (5,'mno','mno@gmail.com',13);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from megastar;
++------+-------------+-----------------+-----------+
+| sid  | studentName | email           | gradution |
++------+-------------+-----------------+-----------+
+|    2 | mohan       | mohan@gmail.com |        15 |
+|    3 | syam        | syam@gmail.com  |        19 |
+|    4 | radhe       | radhe@gmail.com |        12 |
+|    1 | rty         | rty@gmail.com   |        14 |
+|    5 | mno         | mno@gmail.com   |        13 |
++------+-------------+-----------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update megastar set studentName="Atul" where sid=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from megastar;
++------+-------------+-----------------+-----------+
+| sid  | studentName | email           | gradution |
++------+-------------+-----------------+-----------+
+|    2 | mohan       | mohan@gmail.com |        15 |
+|    3 | syam        | syam@gmail.com  |        19 |
+|    4 | radhe       | radhe@gmail.com |        12 |
+|    1 | Atul        | rty@gmail.com   |        14 |
+|    5 | mno         | mno@gmail.com   |        13 |
++------+-------------+-----------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delete from student;
+ERROR 1146 (42S02): Table 'dsabatch18.student' doesn't exist
+mysql> delete from megastar;
+Query OK, 5 rows affected (0.00 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from megastar;
++------+-------------+-----------------+-----------+
+| sid  | studentName | email           | gradution |
++------+-------------+-----------------+-----------+
+|    2 | mohan       | mohan@gmail.com |        15 |
+|    3 | syam        | syam@gmail.com  |        19 |
+|    4 | radhe       | radhe@gmail.com |        12 |
+|    1 | Atul        | rty@gmail.com   |        14 |
+|    5 | mno         | mno@gmail.com   |        13 |
++------+-------------+-----------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from megastar;
+Query OK, 5 rows affected (0.00 sec)
+
+mysql> truncate table megastar;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> select * from megastar;
+Empty set (0.01 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into megastar values (1, "rty","rty@gmail.com",14),
+    -> (5,'mno','mno@gmail.com',13);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from megastar;
++------+-------------+---------------+-----------+
+| sid  | studentName | email         | gradution |
++------+-------------+---------------+-----------+
+|    1 | rty         | rty@gmail.com |        14 |
+|    5 | mno         | mno@gmail.com |        13 |
++------+-------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> truncate from megastar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from megastar' at line 1
+mysql> truncate table from megastar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from megastar' at line 1
+mysql> truncate table megastar;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty","rty@gmail.com",14),
+    -> (5,'mno','mno@gmail.com',13);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from megastar;
++------+-------------+---------------+-----------+
+| sid  | studentName | email         | gradution |
++------+-------------+---------------+-----------+
+|    1 | rty         | rty@gmail.com |        14 |
+|    5 | mno         | mno@gmail.com |        13 |
++------+-------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty","rty@gmail.com",14),
+    -> (5,'mno','mno@gmail.com',13);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> truncate table megastar;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from megastar;
+Empty set (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | YES  |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar (studentName,email) values ('tyu','tyu@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++------+-------------+---------------+-----------+
+| sid  | studentName | email         | gradution |
++------+-------------+---------------+-----------+
+| NULL | tyu         | tyu@gmail.com |        12 |
++------+-------------+---------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> alter table megastar add primary key sid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table megastar add constraints sid primary key(sid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sid primary key(sid)' at line 1
+mysql> alter table megastar add primary key (sid);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> truncate table megastar;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table megastar add primary key (sid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty","rty@gmail.com",14),
+    -> (1,'mno','mno@gmail.com',13);
+ERROR 1062 (23000): Duplicate entry '1' for key 'megastar.PRIMARY'
+mysql> (NULL,'mno','mno@gmail.com',13);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NULL,'mno','mno@gmail.com',13)' at line 1
+mysql> insert into megastar values (1, "rty","rty@gmail.com",14),
+    -> (NULL,'mno','mno@gmail.com',13);
+ERROR 1048 (23000): Column 'sid' cannot be null
+mysql> alter table megastar add primary key (email);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(100)   | YES  |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table megastar add constraints email(not null) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'email(not null)' at line 1
+mysql> alter table megastar add constraint email(not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(not null)' at line 1
+mysql> alter table megastar add constraint not null email(not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null email(not null)' at line 1
+mysql> alter table megastar modify email( not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( not null)' at line 1
+mysql> alter table megastar modify email not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null' at line 1
+mysql> ALTER TABLE YourTableName
+    ->     MODIFY YourColumnName DataType NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DataType NOT NULL' at line 2
+mysql> alter table megastar modify email int not null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | int         | NO   |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty",null,14);
+ERROR 1048 (23000): Column 'email' cannot be null
+mysql> insert into megastar values (1, "rty","abc@gmail.com",14);
+ERROR 1366 (HY000): Incorrect integer value: 'abc@gmail.com' for column 'email' at row 1
+mysql> alter table megastar modify email char(20) not null;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(20)    | NO   |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty",null,14);
+ERROR 1048 (23000): Column 'email' cannot be null
+mysql> insert into megastar values (1, "rty",'abc@gmail.com',14);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+---------------+-----------+
+| sid | studentName | email         | gradution |
++-----+-------------+---------------+-----------+
+|   1 | rty         | abc@gmail.com |        14 |
++-----+-------------+---------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> insert into megastar values (1, "rty",'abc@gmail.com',14);
+ERROR 1062 (23000): Duplicate entry '1' for key 'megastar.PRIMARY'
+mysql> insert into megastar values (2, "rty",'abc@gmail.com',14);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+---------------+-----------+
+| sid | studentName | email         | gradution |
++-----+-------------+---------------+-----------+
+|   1 | rty         | abc@gmail.com |        14 |
+|   2 | rty         | abc@gmail.com |        14 |
++-----+-------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(20)    | NO   |     | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table megastar modify email char(20) unique;
+ERROR 1062 (23000): Duplicate entry 'abc@gmail.com' for key 'megastar.email'
+mysql> delete from megastar where sid=2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> alter table megastar modify email char(20) unique;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(20)    | YES  | UNI | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (2, "rty",'abc@gmail.com',14);
+ERROR 1062 (23000): Duplicate entry 'abc@gmail.com' for key 'megastar.email'
+mysql> select * from megastar;
++-----+-------------+---------------+-----------+
+| sid | studentName | email         | gradution |
++-----+-------------+---------------+-----------+
+|   1 | rty         | abc@gmail.com |        14 |
++-----+-------------+---------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> insert into megastar values (2, "rty",'abc@gmail.com',14);
+ERROR 1062 (23000): Duplicate entry 'abc@gmail.com' for key 'megastar.email'
+mysql> insert into megastar values (2, "rty",'abc1@gmail.com',14);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from megastar;
++-----+-------------+----------------+-----------+
+| sid | studentName | email          | gradution |
++-----+-------------+----------------+-----------+
+|   1 | rty         | abc@gmail.com  |        14 |
+|   2 | rty         | abc1@gmail.com |        14 |
++-----+-------------+----------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into megastar values (2, "rty",null,14);
+ERROR 1062 (23000): Duplicate entry '2' for key 'megastar.PRIMARY'
+mysql> insert into megastar values (3, "rty",null,14);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+----------------+-----------+
+| sid | studentName | email          | gradution |
++-----+-------------+----------------+-----------+
+|   1 | rty         | abc@gmail.com  |        14 |
+|   2 | rty         | abc1@gmail.com |        14 |
+|   3 | rty         | NULL           |        14 |
++-----+-------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(20)    | YES  | UNI | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table megastar drop primary key;
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(20)    | YES  | UNI | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table megastar add primary key (email);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> select * from megastar;
++-----+-------------+----------------+-----------+
+| sid | studentName | email          | gradution |
++-----+-------------+----------------+-----------+
+|   1 | rty         | abc@gmail.com  |        14 |
+|   2 | rty         | abc1@gmail.com |        14 |
+|   3 | rty         | NULL           |        14 |
++-----+-------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from megastar where email=null;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+----------------+-----------+
+| sid | studentName | email          | gradution |
++-----+-------------+----------------+-----------+
+|   1 | rty         | abc@gmail.com  |        14 |
+|   2 | rty         | abc1@gmail.com |        14 |
+|   3 | rty         | NULL           |        14 |
++-----+-------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from megastar where sid=3;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+----------------+-----------+
+| sid | studentName | email          | gradution |
++-----+-------------+----------------+-----------+
+|   1 | rty         | abc@gmail.com  |        14 |
+|   2 | rty         | abc1@gmail.com |        14 |
++-----+-------------+----------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table megastar add primary key (email);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc megastar;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   |     | NULL    |       |
+| studentName | varchar(20) | YES  |     | NULL    |       |
+| email       | char(20)    | NO   | PRI | NULL    |       |
+| gradution   | tinyint(1)  | YES  |     | 12      |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into megastar values (3, "rty","jagmohan@gmail.com",true);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+--------------------+-----------+
+| sid | studentName | email              | gradution |
++-----+-------------+--------------------+-----------+
+|   1 | rty         | abc@gmail.com      |        14 |
+|   2 | rty         | abc1@gmail.com     |        14 |
+|   3 | rty         | jagmohan@gmail.com |         1 |
++-----+-------------+--------------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into megastar values (3, "rty","jagmohan@gmail.com",false);
+ERROR 1062 (23000): Duplicate entry 'jagmohan@gmail.com' for key 'megastar.PRIMARY'
+mysql> insert into megastar values (3, "rty","jagmohan@gmai1l.com",false);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from megastar;
++-----+-------------+---------------------+-----------+
+| sid | studentName | email               | gradution |
++-----+-------------+---------------------+-----------+
+|   1 | rty         | abc@gmail.com       |        14 |
+|   2 | rty         | abc1@gmail.com      |        14 |
+|   3 | rty         | jagmohan@gmai1l.com |         0 |
+|   3 | rty         | jagmohan@gmail.com  |         1 |
++-----+-------------+---------------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>
