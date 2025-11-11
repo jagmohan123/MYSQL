@@ -1,0 +1,345 @@
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ADMIN USER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| coders             |
+| dsabatch18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| selection          |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> create database practice;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| coders             |
+| dsabatch18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice           |
+| selection          |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use practice;
+Database changed
+mysql> create table student (sid int primary key, name varchar(20) not null, city varchar(20) default "Indore",age int check (age>18), email varchar(30) unique);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> describe student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| city  | varchar(20) | YES  |     | Indore  |       |
+| age   | int         | YES  |     | NULL    |       |
+| email | varchar(30) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into student values(1,"Rohan","Indore",25, "rohan@gmail.com"),
+    -> (2,"Niraj Mahajan","Jabalpur",22,"niraj@gmail.com");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into student values(1,"Mayank","Devas",27, "mayank@gmail.com"),
+    -> (4,"Paritosh","Delhi",28,"paritosh@gmail.com");
+ERROR 1062 (23000): Duplicate entry '1' for key 'student.PRIMARY'
+mysql> insert into student values(1,"Mayank","Devas",27, "mayank@gmail.com"),
+    -> (4,"Paritosh","Delhi",28,"paritosh@gmail.com");
+ERROR 1062 (23000): Duplicate entry '1' for key 'student.PRIMARY'
+mysql> insert into student values(3,"Mayank","Devas",27, "mayank@gmail.com"),
+    -> (4,"Paritosh","Delhi",28,"paritosh@gmail.com");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++-----+---------------+----------+------+--------------------+
+| sid | name          | city     | age  | email              |
++-----+---------------+----------+------+--------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com    |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com    |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com   |
+|   4 | Paritosh      | Delhi    |   28 | paritosh@gmail.com |
++-----+---------------+----------+------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from student where age=28;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com |
++-----+---------------+----------+------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+--------------------+
+| sid | name          | city     | age  | email              |
++-----+---------------+----------+------+--------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com    |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com    |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com   |
+|   4 | Paritosh      | Delhi    |   28 | paritosh@gmail.com |
++-----+---------------+----------+------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create user pari identified by "pari@123";
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> grant select on student  to pari;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> grant delete on student to pari;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant insert, update on student to pari;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com |
+|   5 | mohit         | katni    |   27 | mohit@gmail.com  |
++-----+---------------+----------+------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from student where sid=5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com |
++-----+---------------+----------+------+------------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codeclimber        |
+| coders             |
+| dsabatch18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice           |
+| selection          |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use practice
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> grant select on student to pari;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> revoke insert, update, select,delete on student from pari;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select on student to pari;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant update on student to pari;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mr Mayank     | Devas    |   27 | mayank@gmail.com |
+|  10 | Chaman        | Chennai  |   56 | chaman@gmail.com |
++-----+---------------+----------+------+------------------+
+4 rows in set (0.00 sec)
+
+
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%SECONDARY USER%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Microsoft Windows [Version 10.0.26100.6899]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u pari -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.42 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| practice           |
++--------------------+
+3 rows in set (0.01 sec)
+
+mysql> use practice;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| city  | varchar(20) | YES  |     | Indore  |       |
+| age   | int         | YES  |     | NULL    |       |
+| email | varchar(30) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+--------------------+
+| sid | name          | city     | age  | email              |
++-----+---------------+----------+------+--------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com    |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com    |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com   |
+|   4 | Paritosh      | Delhi    |   28 | paritosh@gmail.com |
++-----+---------------+----------+------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from student where sid=4;
+ERROR 1142 (42000): DELETE command denied to user 'pari'@'localhost' for table 'student'
+mysql> delete from student where sid=4;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values (5,"mohit","katni",27,"mohit@gmail.com");
+ERROR 1142 (42000): INSERT command denied to user 'pari'@'localhost' for table 'student'
+mysql> insert into student values (5,"mohit","katni",27,"mohit@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com |
+|   5 | mohit         | katni    |   27 | mohit@gmail.com  |
++-----+---------------+----------+------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mayank        | Devas    |   27 | mayank@gmail.com |
+|   5 | mohit         | katni    |   27 | mohit@gmail.com  |
++-----+---------------+----------+------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from student where sid=5;
+ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+
+
+ insert into student values(10, "Chaman","Chennai",56,"chaman@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
+ERROR 1142 (42000): SELECT command denied to user 'pari'@'localhost' for table 'student'
+mysql> update student set name="Mayank Chohan" where sid=3;
+ERROR 1142 (42000): UPDATE command denied to user 'pari'@'localhost' for table 'student'
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mayank Chohan | Devas    |   27 | mayank@gmail.com |
+|  10 | Chaman        | Chennai  |   56 | chaman@gmail.com |
++-----+---------------+----------+------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> update student set name="Mr Mayank" where sid=3;
+ERROR 1142 (42000): UPDATE command denied to user 'pari'@'localhost' for table 'student'
+mysql> update student set name="Mr Mayank" where sid=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-----+---------------+----------+------+------------------+
+| sid | name          | city     | age  | email            |
++-----+---------------+----------+------+------------------+
+|   1 | Rohan         | Indore   |   25 | rohan@gmail.com  |
+|   2 | Niraj Mahajan | Jabalpur |   22 | niraj@gmail.com  |
+|   3 | Mr Mayank     | Devas    |   27 | mayank@gmail.com |
+|  10 | Chaman        | Chennai  |   56 | chaman@gmail.com |
++-----+---------------+----------+------+------------------+
+4 rows in set (0.00 sec)
